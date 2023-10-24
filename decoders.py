@@ -7,7 +7,7 @@ import os
 from scipy.stats import zscore
 from scipy.interpolate import interp1d
 from scipy.ndimage import gaussian_filter1d
-from sklearn.manifold import isomap
+# from sklearn.manifold import isomap
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import Lasso, Lars
