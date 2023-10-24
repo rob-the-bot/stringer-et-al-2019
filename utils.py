@@ -111,8 +111,8 @@ def compile_resp(dat, nskip=4, npc=0, zscore=True):
             sresp = sresp - dat['u_spont'][:,:npc] @ (dat['u_spont'][:,:npc].T @ sresp)
         sresp = sresp[:,:istim.size]
         # zscore sresp across stimuli (so each neuron has mean 0 / std 1 responses)
-        ssub0 = sresp.mean(axis=1)
-        sstd0 = sresp.std(axis=1) + 1e-6
+        ssub0 = sresp[:, itrain].mean(axis=1)
+        sstd0 = sresp[:, itrain].std(axis=1) + 1e-6
         sresp = (sresp - ssub0[:,np.newaxis]) / sstd0[:,np.newaxis]
     else:
         sresp = dat['sresp'].copy()
