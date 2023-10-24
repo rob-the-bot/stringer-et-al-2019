@@ -1,0 +1,19 @@
+name: stringer2021
+
+channels:
+- conda-forge
+- pytorch-lts
+
+dependencies:
+- python==3.7.3
+- numpy
+- scipy
+- scikit-image
+- scikit-learn
+- matplotlib
+- jupyterlab
+- seaborn
+- pytorch
+- torchvision
+- torchaudio
+- cpuonly
