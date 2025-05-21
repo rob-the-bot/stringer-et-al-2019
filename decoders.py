@@ -547,10 +547,8 @@ def run_discrimination(fs, nangles=None, decoder='linear', npc=0):
         else:
             if decoder=='deep_net':
                 ## compute PC's
-                pca = PCA(n_components=256).fit(sresp[:, itrain])
-                x = pca.components_.T
-                sv = pca.singular_values_
-                x *= sv
+                pca = PCA(n_components=256).fit(sresp.T[itrain])
+                x = pca.transform(sresp.T)
             else:
                 x = sresp.T.copy()
                 del sresp
@@ -871,10 +869,8 @@ def pc_decoding(fs, nPC, npc=0):
 
         sresp, istim, itrain, itest = utils.compile_resp(dat, npc=npc)
 
-        pca = PCA(n_components=nPC[-1]).fit(sresp[:, itrain])
-        u = pca.components_.T
-        sv = pca.singular_values_
-        u *= sv
+        pca = PCA(n_components=nPC[-1]).fit(sresp.T[itrain])
+        u = pca.transform(sresp.T)
 
         for k,pc in enumerate(nPC):
             apred, error, _, _ = vonmises_decoder(u[:,:pc].T, istim, itrain, itest)
