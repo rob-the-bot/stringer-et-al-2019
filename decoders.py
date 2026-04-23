@@ -632,7 +632,7 @@ def runspeed_discrimination(fs, all_running, npc=0):
         itest2 = (runsp[rperm]>10).nonzero()[0]
         itest2 = rperm[itest2[:ntesthalf]]
         itest = np.concatenate((itest1, itest2), axis=0)
-        itrain = np.ones(istim.size, 'Bool')
+        itrain = np.ones(istim.size, bool)
         itrain[itest] = False
 
         D, dy, A = derivative_decoder(istim, sresp, itrain[::1], itest1, lam = 1)
