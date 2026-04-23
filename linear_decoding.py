@@ -16,7 +16,7 @@ for di in db:
     fs.append(dataroot / fname)
 
 ### WHERE YOU WANT TO SAVE THE OUTPUTS OF THE ANALYSIS SCRIPTS AND THE FIGURES (if save_figure=True)
-saveroot = dataroot / 'figs_corrected'
+saveroot = dataroot / 'figs'
 
 ### linear decoding from all neurons
 E, ccE, nsplit, npop, nstim, E2 = decoders.asymptotics(fs[:6], linear=True, downsample=100, skip_E2=True)
