@@ -2,7 +2,7 @@ name: stringer2021
 
 channels:
 - conda-forge
-- pytorch-lts
+# - pytorch-lts
 
 dependencies:
 - python==3.7.3
@@ -13,8 +13,7 @@ dependencies:
 - matplotlib
 - jupyterlab
 - seaborn
+- ipywidgets
 - tqdm
-- pytorch
-- torchvision
-- torchaudio
-- cpuonly
+# - pytorch
+# - cpuonly
