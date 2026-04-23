@@ -283,7 +283,7 @@ def nbasis_linear(fs, npc=0):
         lam = 1
         nangle = 2 * np.pi
         X = sresp[:,itrain]
-        XtX = X @ X.T
+        # XtX = X @ X.T
         for j,nt in enumerate(ntt):
             for k,nth in enumerate(nbasis):
                 if nth>2:
@@ -365,7 +365,7 @@ def vonmises_decoder(sresp, istim, itrain, itest, nth=48, nangle=2*np.pi,
 
     X = sresp[:,itrain]
     if dcdtype=='L2':
-        XtX = X @ X.T
+        # XtX = X @ X.T
         A = fast_ridge(X, y, lam=lam)
         #A = np.linalg.solve(XtX + X.shape[1] * lam*np.eye(NN), X @ y)
     else:
@@ -714,7 +714,7 @@ def chron_discrimination(fs, all_depths, npc=0):
 def dense_decoder(sresp, istim, itrain, itest, lam=1):
     y = istim[itrain]
     X = sresp[:,itrain]
-    XtX = X @ X.T
+    # XtX = X @ X.T
     A = fast_ridge(X, y, lam=lam)
     apred = sresp[:,itest].T @ A
     error = istim[itest] - apred
