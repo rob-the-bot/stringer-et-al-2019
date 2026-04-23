@@ -739,7 +739,7 @@ def dense_asymptotics(fs, lam=1, npc=0):
         print('dataset %d'%t)
         dat = np.load(f, allow_pickle=True).item()
         sresp, istim, itrain, itest = utils.compile_resp(dat, npc=npc)
-        istim -= istim.mean()
+        istim -= istim[itrain].mean()
 
         NN = sresp.shape[0]
         npop[:, t] = (NN/nskip).astype('int')
