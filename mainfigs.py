@@ -125,8 +125,8 @@ def fig1(dataroot, saveroot, save_figure=False):
     sresp, istim, itrain, itest = utils.compile_resp(dat)
 
     nbase = 10
-    A, B, D, rez         = decoders.fit_indep_model(sresp[:, itrain], istim[itrain], nbase)
-    apred1, logL, B2, Kup = decoders.test_indep_model(sresp[:, itest], A, nbase)
+    A, B, vv, SNR, rez         = decoders.fit_indep_model(sresp[:, itrain], istim[itrain], nbase)
+    apred1, logL, B2, Kup = decoders.test_indep_model(sresp[:, itest], A, vv, nbase)
     Apred = A.T @ B2
     SNR = np.var(Apred, axis=1) / np.var(rez, axis=1)
     btheta = np.argmax(Apred @ Kup.T, axis=1) / Kup.shape[0] * 2 * np.pi
