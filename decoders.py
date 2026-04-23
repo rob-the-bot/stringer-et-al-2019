@@ -814,6 +814,17 @@ def asymptotics(fs, linear=True, npc=0, downsample = None, skip_E2 = False):
         print('asymp for: ', os.path.basename(f))
         dat = np.load(f, allow_pickle=True).item()
         if downsample is not None:
+            # handle different types of downsample
+            # downsample is a float, e.g. 0.1, 0.2, etc.
+            # we select a random subset of the data with the given percentage
+            if isinstance(downsample, float):
+                downsample = int(downsample * dat["sresp"].shape[1])
+            # downsample is an integer, e.g. 100, 200, etc.
+            # we select random stimuli from the data
+            elif isinstance(downsample, int):
+                pass
+            else:
+                raise ValueError(f"Invalid downsample type: {type(downsample)}")
             # choose random downsample
             np.random.seed(seed = 101)
             rperm = np.random.permutation(dat["sresp"].shape[1])[: downsample]
