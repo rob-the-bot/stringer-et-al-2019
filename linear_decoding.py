@@ -1,5 +1,7 @@
+# %%
 from pathlib import Path
 
+from tqdm.auto import tqdm
 import numpy as np
 import decoders
 
@@ -18,6 +20,13 @@ for di in db:
 ### WHERE YOU WANT TO SAVE THE OUTPUTS OF THE ANALYSIS SCRIPTS AND THE FIGURES (if save_figure=True)
 saveroot = dataroot / 'figs'
 
-### linear decoding from all neurons
-E, ccE, nsplit, npop, nstim, E2 = decoders.asymptotics(fs[:6], linear=True, downsample=100, skip_E2=True)
-np.save(saveroot / 'linear_decoder_asymp.npy', {'E': E, 'ccE': ccE, 'nsplit': nsplit, 'npop': npop, 'nstim': nstim, 'E2': E2})
+#%% linear decoding from all neurons
+
+for percent in tqdm(np.logspace(-2, 0, 10)):
+    if percent == 1:
+        percent = None
+        fname = 'linear_decoder_asymp_all.npy'
+    else:
+        fname = f'linear_decoder_asymp_percent_{percent:.2f}.npy'
+    E, ccE, nsplit, npop, nstim, E2 = decoders.asymptotics(fs[:6], linear=True, downsample=percent, skip_E2=True)
+    np.save(saveroot / fname, {'E': E, 'ccE': ccE, 'nsplit': nsplit, 'npop': npop, 'nstim': nstim, 'E2': E2})
