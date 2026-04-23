@@ -14,6 +14,7 @@ from sklearn.linear_model import Lasso, Lars
 from sklearn.linear_model import orthogonal_mp
 from scipy.stats import linregress
 from multiprocessing import Pool
+from tqdm.auto import tqdm
 
 import utils
 
@@ -863,7 +864,7 @@ def pc_decoding(fs, nPC, npc=0):
     ''' linearly decode from PCs of data '''
 
     errors = np.zeros((len(fs), len(nPC)))
-    for t,f in enumerate(fs):
+    for t,f in enumerate(tqdm(fs)):
         print(os.path.basename(f))
         dat = np.load(f, allow_pickle=True).item()
 
