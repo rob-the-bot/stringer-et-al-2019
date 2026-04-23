@@ -143,7 +143,7 @@ def fig1(dataroot, saveroot, save_figure=False):
     #spks_norm = spks_norm - dat['u_spont'] @ (dat['u_spont'].T @ spks_norm)
     stimtimes = dat['stimtimes']
 
-    stimtrace = np.zeros((dat['spks'].shape[1],), np.bool)
+    stimtrace = np.zeros((dat['spks'].shape[1],), bool)
     stimtrace[stimtimes] = True
     stimtrace = stimtrace[trange[0]:trange[-1]]
 

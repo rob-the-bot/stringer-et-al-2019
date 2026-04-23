@@ -695,8 +695,8 @@ def chron_discrimination(fs, all_depths, npc=0):
         D0, dy0, A = derivative_decoder(istim, sresp, itrain, itest, lam = 1)
 
         # use 75% vs 25%
-        itrain = np.zeros((nstim,), np.bool)
-        itest = np.zeros((nstim,), np.bool)
+        itrain = np.zeros((nstim,), bool)
+        itest = np.zeros((nstim,), bool)
         itrain[:int(nstim*.75)] = True
         itest[int(nstim*.75):] = True
         D1, dy1, A = derivative_decoder(istim, sresp, itrain, itest, lam = 1)
