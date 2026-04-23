@@ -798,7 +798,7 @@ def run_independent_and_gain(fs, npc=0):
     return E, ccE
 
 
-def asymptotics(fs, linear=True, npc=0):
+def asymptotics(fs, linear=True, npc=0, downsample = None, skip_E2 = False):
     nskip = 2**np.linspace(0, 10, 21)
     nskipstim = 2**np.linspace(0, 10, 21)
     E = np.zeros((len(nskip),2, len(fs)))
@@ -812,6 +812,12 @@ def asymptotics(fs, linear=True, npc=0):
     for t,f in enumerate(fs):
         print('asymp for: ', os.path.basename(f))
         dat = np.load(f, allow_pickle=True).item()
+        if downsample is not None:
+            # choose random downsample
+            np.random.seed(seed = 101)
+            rperm = np.random.permutation(dat["sresp"].shape[1])[: downsample]
+            dat["sresp"] = dat["sresp"][:, rperm]
+            dat["istim"] = dat["istim"][rperm]
 
         sresp, istim, itrain, itest = utils.compile_resp(dat, npc=npc)
         ypos = np.array([dat['stat'][j]['med'][0] for j in range(len(dat['stat']))])
@@ -846,7 +852,9 @@ def asymptotics(fs, linear=True, npc=0):
             ccE[k,0,t] = np.corrcoef(err1, err2)[0,1]
             ccE[k,1,t] = spearmanr(err1, err2)[0]
             nsplit[k,t] = len(n1)
-
+        
+        if skip_E2:
+            continue
         nstim[:,t] = (itrain.size/nskipstim).astype('int')
         np.random.seed(seed = 101)
         rperm = np.random.permutation(itrain.size)
