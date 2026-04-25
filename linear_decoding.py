@@ -29,4 +29,4 @@ for percent in tqdm(np.logspace(-2, 0, 10)):
     else:
         fname = f'linear_decoder_asymp_percent_{percent:.2f}.npy'
     E, ccE, nsplit, npop, nstim, E2 = decoders.asymptotics(fs[:6], linear=True, downsample=percent, skip_E2=True)
-    np.save(saveroot / fname, {'E': E, 'ccE': ccE, 'nsplit': nsplit, 'npop': npop, 'nstim': nstim, 'E2': E2})
+    np.save(saveroot / fname, {'E': E})
