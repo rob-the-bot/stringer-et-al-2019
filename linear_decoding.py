@@ -6,7 +6,7 @@ import numpy as np
 import decoders
 
 ### WHERE YOU DOWNLOADED THE FIGSHARE
-dataroot = Path('Z:/') / "Tianfeng_workspace" / "PCA_LDA" / "data" / "stringer2019" / "fs125"
+dataroot = Path('C:/') / "temp" / "fs125"
 
 # file list
 # THIS WAS UPDATED ON NOV 5th!!! Please redownload + biased_V2 and static_sin_rand
@@ -19,6 +19,7 @@ for di in db:
 
 ### WHERE YOU WANT TO SAVE THE OUTPUTS OF THE ANALYSIS SCRIPTS AND THE FIGURES (if save_figure=True)
 saveroot = dataroot / 'figs'
+saveroot.mkdir(parents=True, exist_ok=True)
 
 #%% linear decoding from all neurons
 
