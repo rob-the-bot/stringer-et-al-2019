@@ -825,11 +825,9 @@ def asymptotics(fs, linear=True, npc=0, downsample = None, skip_E2 = False):
                 pass
             else:
                 raise ValueError(f"Invalid downsample type: {type(downsample)}")
-            # choose random downsample
-            np.random.seed(seed = 101)
-            rperm = np.random.permutation(dat["sresp"].shape[1])[: downsample]
-            dat["sresp"] = dat["sresp"][:, rperm]
-            dat["istim"] = dat["istim"][rperm]
+            # choose the trials in sequential order
+            dat["sresp"] = dat["sresp"][:, :downsample]
+            dat["istim"] = dat["istim"][:downsample]
 
         sresp, istim, itrain, itest = utils.compile_resp(dat, npc=npc)
         ypos = np.array([dat['stat'][j]['med'][0] for j in range(len(dat['stat']))])
